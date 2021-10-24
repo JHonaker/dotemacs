@@ -28,9 +28,9 @@
   (define-key map (kbd "C-c b") 'org-switchb))
 
 
-(setq org-enforce-todo-dependencies t)
 (setq org-log-done 'time)
 
+(setq org-use-fast-todo-selection 'expert)
 (setq org-fast-tag-selection-include-todo t)
 
 (setq org-todo-keywords
@@ -70,15 +70,40 @@
   '(todo "PROJ")
   "Projects")
 
-(def-ql mentat/all-project-tasks
-  '(and (todo "TODO" "NEXT")
+(def-ql mentat/superprojects
+  '(and (todo "PROJ")
+	(descendants (todo "PROJ")))
+  "Root Projects")
+
+(def-ql mentat/subprojects
+  '(and (todo "PROJ")
 	(ancestors (todo "PROJ")))
-  "All Project Tasks")
+  "Subprojects")
+
+(setq mentat/all-project-tasks-query
+      '(and (todo "TODO" "NEXT")
+	(ancestors (todo "PROJ"))
+	(or (not (scheduled))
+	    (scheduled :to 0))))
+
+(setq mentat/all-project-tasks-block
+      '((org-ql-block mentat/all-project-tasks-query
+		      ((org-ql-block-header "All Project Tasks")
+		       (org-super-agenda-groups '((:auto-parent t)))))))
+
+(def-ql mentat/scheduled-tasks
+  '(and (todo "TODO" "NEXT")
+	(scheduled :to 0))
+  "Scheduled Tasks")
+
+(def-ql mentat/due-soon
+  '(and (todo "TODO" "NEXT")
+	(deadline :to 14))
+  "Tasks Due Soon")
 
 (def-ql mentat/stuck-projects
   '(and (todo "PROJ")
-	(not (descendants (todo "NEXT")))
-	(not (descendants (scheduled))))
+	(not (descendants (todo "NEXT"))))
   "Stuck Projects")
 
 (def-ql mentat/refile-tasks
@@ -107,19 +132,19 @@
 
       `(("d" "Day to Day View"
 	 (,@mentat/next-tasks-block
+	  ,@mentat/scheduled-tasks-block
+	  ,@mentat/due-soon-block
 	  ,@mentat/closed-today-block
 	  ,@mentat/refile-tasks-block
 	  ,@mentat/all-projects-block
 	  ,@mentat/all-project-tasks-block))
-
-	("r" . "Review")
-	("rw" "Weekly Review"
+	("w" "Weekly Review"
 	 (,@mentat/refile-tasks-block
 	  ,@mentat/waiting-tasks-block
 	  ,@mentat/stuck-projects-block
 	  ,@mentat/next-tasks-block
 	  ,@mentat/all-projects-block))
-	("rr" "Review Report View"
+	("r" "Review Report View"
 	 (,@mentat/recently-closed-block
 	  ,@mentat/waiting-tasks-block
 	  ,@mentat/all-projects-block
@@ -179,6 +204,38 @@ Clears the current window setup."
   (switch-to-buffer buf-name)
   (org-agenda nil review-template-key))
 
+(defun mentat/weekly-report ()
+  (interactive)
+  (let ((buf-name "*Weekly Report*"))
+    (with-current-buffer (get-buffer-create buf-name)
+      
+      )
+    )
+  )
+
+(defun ap/org-tree-to-indirect-buffer (&optional arg)
+    "Create indirect buffer and narrow it to current subtree.
+The buffer is named after the subtree heading, with the filename
+appended.  If a buffer by that name already exists, it is
+selected instead of creating a new buffer."
+    (interactive "P")
+    (let* ((new-buffer-p)
+           (pos (point))
+           (buffer-name (concat (org-link-display-format (nth 4 (org-heading-components)))
+                                "::" (file-name-nondirectory (buffer-file-name (buffer-base-buffer)))))
+           (new-buffer (or (get-buffer buffer-name)
+                           (prog1 (condition-case nil
+                                      (make-indirect-buffer (current-buffer) buffer-name 'clone)
+                                    (error (make-indirect-buffer (current-buffer) buffer-name)))
+                             (setq new-buffer-p t)))))
+      (if arg
+          (pop-to-buffer new-buffer)
+        (switch-to-buffer new-buffer))
+      (when new-buffer-p
+        ;; I don't understand why setting the point again is necessary, but it is.
+        (goto-char pos)
+        (org-narrow-to-subtree))))
+(advice-add 'org-tree-to-indirect-buffer :override 'ap/org-tree-to-indirect-buffer)
 
 (provide 'mentat-org-setup)
 
