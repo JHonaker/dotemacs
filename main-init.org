@@ -1,13 +1,16 @@
 * Startup
 
 ** early-init.el
+:PROPERTIES:
+:ID:       1082cc30-1731-4ab3-9192-77ed053df4d3
+:END:
 
 I rely on [[*Straight.el][Straight.el]] to manage my package installation needs. This
 requires me to include a line in =early-init.el= that disables
 =Package.el=.
 
 #+begin_src elisp :tangle early-init.el
-  ;;; -*- lexcical-binding: t; -*-
+
   ;; Do not initialize package.el at startup since we are using
   ;; straight.el to manage packages.
   (setq package-enable-at-startup nil)
@@ -29,6 +32,9 @@ code that I am not responsible for, and the constant pop-ups are very
 distracting.
 
 ** init.el
+:PROPERTIES:
+:ID:       c318df5e-5cc2-44a2-85ad-ecc573358efa
+:END:
 
 This is the init.el file. It includes some code to rebuild the config
 files when Emacs closes. When bootstrapping a new installation, open
@@ -36,7 +42,7 @@ this page in Emacs, and run =org-tangle=. It will produce the
 =early-init.el=, =init.el=, and =main-init-el= files.
 
 #+begin_src elisp :tangle init.el
-  ;;; -*- lexcical-binding: t; -*-
+
   (defvar mentat-emacs-init-org "main-init.org"
     "Name of the Org mode file that provides the reference
   implementation of the init file.")
@@ -88,6 +94,9 @@ this page in Emacs, and run =org-tangle=. It will produce the
 #+end_src
 
 ** Straight.el
+:PROPERTIES:
+:ID:       7ee7fbdc-aefc-4d90-977e-7bbc042b14fe
+:END:
 
 I've been spurned by MELPA's "push the most recent commit" philosophy,
 so I use straight.el to manage my packages.
@@ -114,6 +123,9 @@ This is the bootstrapping code for installing it.
 In order for this to work properly we need to include the code in =early-init.el= to disable =Package.el=.
 
 ** Platform Detection
+:PROPERTIES:
+:ID:       2d70f060-fe42-47b9-91b7-7011c1461a77
+:END:
 
 At work I have to use Windows, and at home I use Linux. These
 variables let me use platform specific configurations.
@@ -124,6 +136,9 @@ variables let me use platform specific configurations.
 #+end_src
 
 ** Add Local Lisp Libraries
+:PROPERTIES:
+:ID:       34ae9c6c-1d0f-413f-b589-d8b000474dba
+:END:
 
 I keep some Elisp files in =~/.config/emacs/local-lisp=. Put that in
 the =load-path=.
@@ -133,6 +148,9 @@ the =load-path=.
 #+end_src
 
 ** Customization File
+:PROPERTIES:
+:ID:       f93b946b-5e49-4a3f-921d-daca0ce4fb6c
+:END:
 
 I moved the customizations from the Customization menu into their own
 file so they don't get overwritten when the config re-tangles.
@@ -143,6 +161,9 @@ file so they don't get overwritten when the config re-tangles.
 #+end_src
 
 ** Core Function Definitions
+:PROPERTIES:
+:ID:       c6ad6258-4ab1-45d6-b634-1cbfac01fc45
+:END:
 
 #+begin_src elisp
   (require 'mentat-core)
@@ -151,6 +172,9 @@ file so they don't get overwritten when the config re-tangles.
 * Basic Configuration
 
 ** Emacs Server
+:PROPERTIES:
+:ID:       edefb72e-0207-4630-84ce-b338243cc2e4
+:END:
 
 Start the server for =emacsclient= if it's not already running.
 
@@ -161,12 +185,18 @@ Start the server for =emacsclient= if it's not already running.
 #+end_src
 
 ** Recentf
+:PROPERTIES:
+:ID:       45c36ebf-86a1-42f9-9d9e-ddece3579f34
+:END:
 
 #+begin_src elisp
   (recentf-mode 1)
 #+end_src
 
 ** Configuration Macro
+:PROPERTIES:
+:ID:       9dfed50a-06da-4d2a-bb20-65a7886dd9d6
+:END:
 
 This macro makes sure that a package is installed before it tries to
 apply any configuration settings. I am not super happy with this. I
@@ -186,6 +216,9 @@ might get rid of it.
   #+end_src
 
 ** Helpful
+:PROPERTIES:
+:ID:       99566664-dd5f-4b12-992d-c60d71117807
+:END:
 
 Emacs default help is one of its best features. Helpful takes that to
 another level. It includes basically all of the information that you'd
@@ -205,6 +238,9 @@ code, etc.
   #+end_src
 
 ** Which-key
+:PROPERTIES:
+:ID:       70ff6f61-93bd-415b-8c83-ffe703d68825
+:END:
 
 After learning about the =C-h= postfix, I don't use this as much. I've turned it off for now.
 
@@ -218,6 +254,9 @@ After learning about the =C-h= postfix, I don't use this as much. I've turned it
 ** Emacs Behavioral Setup
 
 *** Get Rid of that Damn Bell...
+:PROPERTIES:
+:ID:       28539f9b-6b77-41c1-aa1e-b972291fc661
+:END:
 
 I hate that damn beep. It goes off way too much. Instead of beeping,
 flash the mode line with a specific face.
@@ -235,6 +274,9 @@ flash the mode line with a specific face.
 #+end_src
 
 *** Minibuffer Modifications
+:PROPERTIES:
+:ID:       335608f6-953f-4647-8e12-2650cd8d3135
+:END:
 
 I don't want to allow the cursor to enter the minibuffer prompt. This
 always messes everything up when you, for instance, hit =C-a= to go to
@@ -255,6 +297,9 @@ We also want to enable recursive minibuffers for things like Emabark.
 #+end_src
 
 *** Config Quick Access
+:PROPERTIES:
+:ID:       d58667cc-e86b-41f9-b866-d26c18d70230
+:END:
 
 Before I used a literate config, I had this setup. I have it here,
 only because it's one of the first Elisp function I wrote. I may
@@ -271,6 +316,9 @@ modify it in the future to give me access to this file.
 #+end_src
 
 *** Performance Optimizations
+:PROPERTIES:
+:ID:       221c7686-db66-4c53-9762-c16c0bacd4d6
+:END:
 
 I have read conflicting opinions on the garbage collector threshold. I
 should revisit this as some point. I got these recommentations from
@@ -282,6 +330,9 @@ should revisit this as some point. I got these recommentations from
 #+end_src
 
 *** Nice Default Behavior
+:PROPERTIES:
+:ID:       01654769-0935-4e76-bfed-28df8d364e1a
+:END:
 
 - If on Emacs 28+:
   - Hide M-x commands we cannot use.
@@ -296,7 +347,7 @@ should revisit this as some point. I got these recommentations from
                               28)
       "Is t if `emacs-version' is at least version 28.")
     
-    (if emacs-28+-p
+    (when emacs-28+-p
         (progn
           ;; Hide commands in M-x which do not work in the current mode.
           (setq read-extended-command-predicate
@@ -305,6 +356,9 @@ should revisit this as some point. I got these recommentations from
           ;; Compile loaded .elc files asynchronously
           (setq native-comp-deferred-compilation t)))
     
+    (when on-windows
+      (setq ispell-program-name  "~/.emacs.d/hunspell/bin/hunspell.exe"))
+    
     (show-paren-mode 1)
     
     (setq backup-directory-alist
@@ -312,6 +366,9 @@ should revisit this as some point. I got these recommentations from
   #+end_src
 
 *** Disable Suspend Frame and Overwrite Mode Keybindings
+:PROPERTIES:
+:ID:       3e500b6b-eb09-47cf-bcad-643910ec6a7d
+:END:
 
 I have never meant to activate either of these, and yet I have done it
 so many times. The x and z keys are way too close to each other for
@@ -324,20 +381,42 @@ the most common global key bindings."
   (global-unset-key (kbd "C-x C-z"))
   #+end_src
 
+
+* Custom Functions
+
+** Open file as root
+
+#+begin_src elisp
+  (defun sudo-find-file (file-name)
+    "Like find file, but opens the file as root."
+    (interactive "FSudo Find File: ")
+    (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
+      (find-file tramp-file-name)))
+#+end_src
+
 * Visuals
 
 ** Fonts
+:PROPERTIES:
+:ID:       5c49c1d9-2150-4958-aa27-317121626fb6
+:END:
 
 I have a pretty basic font setup.
 
 #+begin_src elisp 
   ;;(set-face-attribute 'default nil :font "Source Code Pro-10")
-  (set-face-attribute 'default nil :font "JuliaMono-10")
-  (set-face-attribute 'fixed-pitch nil :font "JuliaMono-10")
-  (set-face-attribute 'variable-pitch nil :font "Source Code Variable-10")
+  ;; (set-face-attribute 'default nil :font "JuliaMono-10")
+  ;; (set-face-attribute 'fixed-pitch nil :font "JuliaMono-10")
+  ;; (set-face-attribute 'variable-pitch nil :font "Source Code Variable-10")
+  (set-face-attribute 'default nil :font "Iosevka-10")
+  (set-face-attribute 'fixed-pitch nil :font "Iosevka-10")
+  (set-face-attribute 'variable-pitch nil :font "IosevkaEtoile-10")
 #+end_src
 
 ** Dashboard
+:PROPERTIES:
+:ID:       65ca6672-31dd-4939-a0ee-d34658fc73f1
+:END:
 
 #+begin_src elisp
   (straight-use-package 'dashboard)
@@ -355,6 +434,9 @@ I have a pretty basic font setup.
 #+end_src
 
 ** Themes
+:PROPERTIES:
+:ID:       20089b6a-e8e5-429c-83c7-251eeb24beb7
+:END:
 
 I like to switch themes a lot. I just have a giant list of them here.
 
@@ -388,12 +470,18 @@ I like to switch themes a lot. I just have a giant list of them here.
 #+end_src
 
 ** Fringe
+:PROPERTIES:
+:ID:       6bd945f1-f75e-4746-84ea-e128ab182606
+:END:
 
 #+begin_src elisp 
-  (fringe-mode (cons 15 15))
+  ;;(fringe-mode (cons 15 15))
 #+end_src
 
 ** Pulse
+:PROPERTIES:
+:ID:       9eb1c077-adbc-4547-86ad-2fe65e8d9d95
+:END:
 
 #+begin_src elisp 
   (config-with-package 'pulse
@@ -408,6 +496,9 @@ I like to switch themes a lot. I just have a giant list of them here.
 #+end_src
 
 * Scratch Buffers
+:PROPERTIES:
+:ID:       acc3bc60-e620-457a-8450-1271f7727c50
+:END:
 
 I like scratch buffers a lot. They're really useful for just
 prototyping something that I don't want to pollute by current file
@@ -453,6 +544,9 @@ with the current major-mode.
 ** Completion Styles
 
 *** Orderless
+:PROPERTIES:
+:ID:       c6d75822-1b82-4522-acbe-64eb4581ada0
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'orderless)
@@ -480,6 +574,9 @@ completely compatible with the default Emacs interfaces like
 =completing-read= and =completion-at-point-function=.
 
 *** Vertico
+:PROPERTIES:
+:ID:       08b8a5db-dc17-4dc2-b502-ad98bdd4e3f3
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'vertico)
@@ -488,6 +585,9 @@ completely compatible with the default Emacs interfaces like
 #+end_src
 
 *** Marginalia
+:PROPERTIES:
+:ID:       55f0cdd0-c99d-437f-8015-941ac00bbb5f
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'marginalia)
@@ -498,6 +598,9 @@ completely compatible with the default Emacs interfaces like
 #+end_src
 
 *** Corfu
+:PROPERTIES:
+:ID:       da1767ec-c176-4dd1-a092-e6182794fdca
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'corfu)
@@ -527,6 +630,9 @@ I am trying out Corfu right now.
 #+end_src
 
 ** Consult
+:PROPERTIES:
+:ID:       e6ad3ecc-f650-4019-b359-5d7414b3fb1b
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'consult)
@@ -548,6 +654,11 @@ I am trying out Corfu right now.
     ;; Use Consult to select xref locations with preview
     (setq xref-show-xrefs-function #'consult-xref
           xref-show-definitions-function #'consult-xref)
+  
+    ;; For some reason project-root wasn't introduced until 28+
+    (unless emacs-28+-p 
+      (defun project-root (project)
+        (car (project-roots project))))
   
     (setq consult-narrow-key "<") 
     (setq consult-project-root-function
@@ -612,6 +723,9 @@ I am trying out Corfu right now.
 
 
 ** wgrep - Writeable Grep
+:PROPERTIES:
+:ID:       d38bbe8f-7a2b-4456-8156-7920ade3e388
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'wgrep)
@@ -619,6 +733,9 @@ I am trying out Corfu right now.
 #+end_src
 
 ** Embark
+:PROPERTIES:
+:ID:       a1e0c322-d96c-4eb5-966b-962e7fb1fb51
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'embark)
@@ -638,6 +755,9 @@ I am trying out Corfu right now.
 #+end_src
 
 *** Embark/Consult Interaction
+:PROPERTIES:
+:ID:       dd7127a9-2ba0-470c-ad38-e76b6e7b2f42
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'embark-consult)
@@ -648,12 +768,18 @@ I am trying out Corfu right now.
 ** Navigation
 
 *** Dumb Jump
+:PROPERTIES:
+:ID:       909d1981-f4c4-4d57-bfae-fbc2244f855e
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'dumb-jump)
 #+end_src
 
 *** Window Navigation
+:PROPERTIES:
+:ID:       20cafa44-4521-42b3-b04f-5396f172a079
+:END:
 
 #+begin_src elisp 
   (if emacs-28+-p
@@ -675,9 +801,19 @@ I am trying out Corfu right now.
         (repeat-mode 1)))
 #+end_src
 
+** Outline Minor Mode
+
+#+begin_src elisp
+  (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
+  
+#+end_src
+
 * Programming
 
 ** LSP Mode
+:PROPERTIES:
+:ID:       87bf3f27-d26c-421a-a525-451321e644de
+:END:
 
 A modern text editor would not be complte without an LSP configuration.
 
@@ -688,6 +824,9 @@ A modern text editor would not be complte without an LSP configuration.
   #+end_src
 
 ** Lisp
+:PROPERTIES:
+:ID:       1ea64de2-3eb4-470f-8e59-e5fad8366a13
+:END:
 
 Paredit is incredible for editing Lisp-like languages. I tried Lispy,
 but it required too many conditions for the kebindings to activate for
@@ -719,6 +858,9 @@ anywhere with Paredit.
   #+end_src
 
 *** Common Lisp
+:PROPERTIES:
+:ID:       fec53bc6-6fc7-4bb8-a19b-5f286f4a3299
+:END:
 
 SLY is basically just a more featureful version of SLIME.
 
@@ -729,6 +871,9 @@ SLY is basically just a more featureful version of SLIME.
   #+end_src
 
 *** Racket
+:PROPERTIES:
+:ID:       263cff36-5f78-4b98-a47b-3376a58d3838
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'racket-mode)
@@ -737,6 +882,9 @@ SLY is basically just a more featureful version of SLIME.
   #+end_src
 
 ** R
+:PROPERTIES:
+:ID:       34e53954-af1b-4a0a-b9f8-326d75c07dcb
+:END:
 
 ESS is an excellent development environment for R!
 
@@ -747,6 +895,9 @@ ESS is an excellent development environment for R!
 #+end_src
 
 ** Julia
+:PROPERTIES:
+:ID:       2721b73e-f525-4927-8f2a-ee9ab9e646e9
+:END:
 
 This is in flux right now. I was using Julia mode and Julia-repl, but
 I am trying out julia-snail again. It seems to be much better than the
@@ -770,6 +921,9 @@ last time I tried it.
 #+end_src
 
 ** Python
+:PROPERTIES:
+:ID:       87d9595c-9167-4563-a363-ed591d387b49
+:END:
 
 I have heard that Elpy is the way to go, but I don't use Python that
 much right now.
@@ -783,72 +937,10 @@ much right now.
     (setenv "WORKON_HOME" "~/.envs/"))
   #+end_src
 
-** Nix
-
-#+begin_src elisp
-  (straight-use-package 'nix-mode)
-#+end_src
-  
-** Less Frequently Used Languages
-
-*** GDScript
-#+begin_src elisp 
-  (straight-use-package 'gdscript-mode)
-  (config-with-package 'gdscript-mode
-    (setq gdscript-use-tab-indents nil))
-#+end_src
-
-* Org Mode
-
-#+begin_src elisp 
-  (straight-use-package 'org)
-  (straight-use-package 'org-ql)
-  (straight-use-package 'org-super-agenda)
-  
-  (require 'org)
-  (require 'mentat-org-setup)
-  #+end_src
-
-* Other Modes
-
-** vterm
-
-#+begin_src elisp 
-  (straight-use-package 'vterm)
-#+end_src
-
-** Magit
-
-#+begin_src elisp 
-  (straight-use-package 'magit)
-  (config-with-package 'magit
-    (define-key ctl-x-map (kbd "g") 'magit-status))
-  #+end_src
-
-** Deft
-
-#+begin_src elisp 
-(straight-use-package 'deft)
-(config-with-package 'deft
-
-  (setq deft-directory "~/org/zk/"
-	deft-extensions '("org" "md" "markdown" "txt")
-	deft-default-extension "org")
-  
-  (define-key global-map (kbd "C-c d") 'deft))
-#+end_src
-
-** Elfeed
-
-#+begin_src elisp 
-(straight-use-package 'elfeed)
-(straight-use-package 'elfeed-org)
-(require 'elfeed)
-(require 'elfeed-org)
-(elfeed-org)
-#+end_src
-
-** AucTeX
+** LaTeX - AucTeX
+:PROPERTIES:
+:ID:       77752ebe-b60e-450c-9a1e-4bc4b53109bd
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'auctex)
@@ -871,7 +963,37 @@ much right now.
   
 #+end_src
 
+*** LaTeX LSP Server - Digestif
+
+#+begin_src elisp
+  (setq lsp-tex-server 'digestif)
+#+end_src
+
+** Nix
+:PROPERTIES:
+:ID:       5fdca3b8-725c-4fdc-956e-1ce0c475b1e9
+:END:
+
+#+begin_src elisp
+  (straight-use-package 'nix-mode)
+#+end_src
+  
+** Less Frequently Used Languages
+
+*** GDScript
+:PROPERTIES:
+:ID:       3f192913-d3c3-4f84-aed9-f589d18b2615
+:END:
+#+begin_src elisp 
+  (straight-use-package 'gdscript-mode)
+  (config-with-package 'gdscript-mode
+    (setq gdscript-use-tab-indents nil))
+#+end_src
+
 ** Markdown Mode
+:PROPERTIES:
+:ID:       b89d438c-a775-495d-9b08-52465ea936d9
+:END:
 
 #+begin_src elisp 
   (straight-use-package 'markdown-mode)
@@ -921,6 +1043,9 @@ much right now.
 #+end_src
 
 ** HL-TODO
+:PROPERTIES:
+:ID:       ff678b4c-be0e-46f7-8a07-a51dda7013e5
+:END:
 
 Give TODO comments some special looks
 
@@ -955,6 +1080,9 @@ Give TODO comments some special looks
 
 
 ** Miscellaneous
+:PROPERTIES:
+:ID:       0df1ae65-7cca-4835-b041-42ef0d1d6602
+:END:
 
 These modes don't require additional configuration, (or I haven't done
 it yet) so I've just collected them here.
@@ -972,8 +1100,97 @@ it yet) so I've just collected them here.
   (straight-use-package 'prism)
 #+end_src
 
+* Org Mode
+:PROPERTIES:
+:ID:       79257edc-7950-4c14-8c32-f5ef049e4720
+:END:
+
+#+begin_src elisp 
+  (straight-use-package 'org)
+  (straight-use-package 'org-ql)
+  (straight-use-package 'org-super-agenda)
+  
+  (require 'org)
+  (require 'mentat-org-setup)
+  #+end_src
+
+* Bookmarks
+:PROPERTIES:
+:ID:       21c6901a-2155-4534-896b-e08eb3406383
+:END:
+
+I do not like the overlay that gets put over bookmarked locations. It
+is especially annoying with Org refile commands.
+
+#+begin_src elisp
+  (setq bookmark-fontify nil)
+  (setq org-capture-bookmark nil)
+#+end_src
+
+* Other Modes
+
+** vterm
+:PROPERTIES:
+:ID:       5038d784-e055-400f-ba27-b3e6b20a4cd6
+:END:
+
+#+begin_src elisp
+  (when on-linux
+    (straight-use-package 'vterm))
+#+end_src
+
+** Magit
+:PROPERTIES:
+:ID:       6b284480-8347-40b0-9581-c7235726613a
+:END:
+
+#+begin_src elisp 
+  (straight-use-package 'magit)
+  (config-with-package 'magit
+    (define-key ctl-x-map (kbd "g") 'magit-status))
+  #+end_src
+
+** Deft
+:PROPERTIES:
+:ID:       0bbca5d0-e9ed-4746-8ae3-99bba47f5248
+:END:
+
+#+begin_src elisp 
+(straight-use-package 'deft)
+(config-with-package 'deft
+
+  (setq deft-directory "~/org/zk/"
+	deft-extensions '("org" "md" "markdown" "txt")
+	deft-default-extension "org")
+  
+  (define-key global-map (kbd "C-c d") 'deft))
+#+end_src
+
+** Elfeed
+:PROPERTIES:
+:ID:       73ccf52d-4dee-45d1-8490-3300829602e1
+:END:
+
+#+begin_src elisp 
+(straight-use-package 'elfeed)
+(straight-use-package 'elfeed-org)
+(require 'elfeed)
+(require 'elfeed-org)
+(elfeed-org)
+#+end_src
+
+** KMonad Configuration Language
+
+#+begin_src elisp
+  (straight-use-package '(kbd-mode :type git
+                                   :host github
+                                   :repo "kmonad/kbd-mode"))
+#+end_src
 * Late Stage Setup
 ** Envrc
+:PROPERTIES:
+:ID:       6ebe6a7b-be3d-4c58-ac10-05c65fbe0a2b
+:END:
 
 Envrc integrates with =direnv=, a program that allows you to set
 environment variables local to a directory. Envrc uses the .envrc
@@ -983,9 +1200,55 @@ more easily accessible. I should probably look into Lorri, for Nix
 integration at some point as well.
 
 #+begin_src elisp
-  (straight-use-package 'envrc)
-  (config-with-package 'envrc
-    (envrc-global-mode))
+  (when on-linux
+    (straight-use-package 'envrc)
+    (config-with-package 'envrc
+      (envrc-global-mode)))
+#+end_src
+
+
+* Testing
+** Boon Modal Editing
+
+#+begin_src elisp
+  ;;(straight-use-package 'boon)
+  ;;(require 'boon-qwerty)
+  ;;(boon-mode)
+#+end_src
+
+** God Mode
+
+#+begin_src elisp
+  ;;(straight-use-package 'god-mode)
+  ;;(require 'god-mode)
+  ;;(global-set-key (kbd "<escape>") #'god-local-mode)
+  
+  ;; (defun my-god-mode-update-cursor-type ()
+  ;;   (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar)))
+  
+  ;; (add-hook 'post-command-hook #'my-god-mode-update-cursor-type)
+  
+  ;; (defun my-god-mode-update-mode-line ()
+  ;;   (cond
+  ;;    (god-local-mode
+  ;;     (set-face-attribute 'mode-line nil
+  ;;                         :foreground "#604000"
+  ;;                         :background "#fff29a")
+  ;;     (set-face-attribute 'mode-line-inactive nil
+  ;;                         :foreground "#3f3000"
+  ;;                         :background "#fff3da"))
+  ;;    (t
+  ;;     (set-face-attribute 'mode-line nil
+  ;; 			:foreground "#0a0a0a"
+  ;; 			:background "#d7d7d7")
+  ;;     (set-face-attribute 'mode-line-inactive nil
+  ;; 			:foreground "#404148"
+  ;; 			:background "#efefef"))))
+  ;; ;; Or try 'god-mode-enabled-hook and 'god-mode-disabled-hook or `window hooks'.
+  ;; (add-hook 'post-command-hook 'my-god-mode-update-mode-line)
+  
+  ;;(define-key god-local-mode-map (kbd "z") #'repeat)
+  ;;(define-key god-local-mode-map (kbd "i") #'god-local-mode)
 #+end_src
 
 * Other Interesting Configs

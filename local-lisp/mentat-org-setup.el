@@ -12,10 +12,13 @@
  'org-babel-load-languages
  '((python . t)
    (R . t)
+   (lisp . t)
    (emacs-lisp . t)
    (calc . t)))
 
 (setq org-confirm-babel-evaluate nil)
+
+(setq org-babel-lisp-eval-fn #'sly-eval)
 
 (autoload #'org-indent-mode "org" nil t)
 (add-hook 'org-mode-hook #'org-indent-mode)

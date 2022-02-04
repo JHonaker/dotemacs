@@ -1,0 +1,23 @@
+* Photon.el
+
+Photon.el is inspired by the Emacs package Avy and the Vim plugin lightspeed.vim.
+
+I really like Avy, but there were some changes that I wanted to see. I
+wasn't a huge fan of the way keys are assigned. I think it should
+operate much closer in behavior to I-search, where you write the text
+you want to go to. If it's still ambiguous, then keys can be used to
+disambiguate the destination.
+
+I know Avy has goto-timer, but the small delay ended up being much
+more of a nuisance than I anticipated.
+
+I am also a really big fan of the immediate feedback that lightspeed
+has through the progressive highlighting and desaturation.
+
+This package is my attempt to recreate much of the functionality of lightspeed.vim in Emacs.
+
+I'm using this mostly as a learning opportunity as well. I'm
+attempting to develop this in as functional of a style as I can.
+
+The goal is ultimately to provide an Embark based ``act anywhere''
+functionality that is built from the ground up with that in mind.
