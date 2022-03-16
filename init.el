@@ -196,6 +196,30 @@ Uses `straight.el' for installation."
 		       (format (if (buffer-modified-p) " * %s - Emacs" " - %s - Emacs") project-name)
 		       ))))))
 
+;;;; Tab Bar Setup
+
+(use-package tab-bar
+  :config
+  (defun my/tab-bar-format-menu-bar ()
+    "Propertize the menu bar to show a custom character instead of the text `Menu'."
+    `((menu-bar menu-item (propertize " λ " 'face 'tab-bar-tab-inactive)
+		tab-bar-menu-bar :help "Menu Bar")))
+
+  (add-to-list 'tab-bar-format #'my/tab-bar-format-menu-bar)
+  (menu-bar-mode -1)
+  (tab-bar-mode 1))
+
+;;;; Visual Column Indicator
+
+(use-package emacs
+  :hook (prog-mode-hook . display-fill-column-indicator-mode)
+  :custom (fill-column 102))
+
+;;;; Line Numbers
+
+(use-package emacs
+  :hook (prog-mode-hook . display-line-numbers-mode))
+
 ;;;; Parentheses
 
 (use-package paren
