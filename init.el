@@ -38,6 +38,12 @@
 
 (add-to-list 'load-path (locate-user-emacs-file "local-lisp"))
 
+;;;; Customize File
+
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 ;;;; Native Compilation
 
 (when emacs-28+-p
@@ -206,12 +212,6 @@ Uses `straight.el' for installation."
   :config
   (setq rainbow-ansi-colors nil
 	rainbow-x-colors nil))
-
-;;;; Customize File
-
-(setq custom-file (locate-user-emacs-file "custom.el"))
-(when (file-exists-p custom-file)
-  (load custom-file))
 
 ;;; Outline Mode
 
