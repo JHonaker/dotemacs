@@ -174,7 +174,7 @@ Uses `straight.el' for installation."
 
 ;;;;; Active Theme
 
-(load-theme 'dichromacy)
+(load-theme 'leuven-dark)
 
 ;;;; Olivetti
 
