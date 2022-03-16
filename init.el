@@ -620,8 +620,9 @@ Uses `straight.el' for installation."
 			      "\\*Async Shell Command\\*"	
 			      help-mode
 			      helpful-mode
-			      compilation-mode))
-  (popper-group-function #'popper-group-by-project)
+			      compilation-mode
+			      "\\*.*REPL\\*"))
+  (popper-group-function #'popper-group-by-directory)
   :general
   (global-map
    "C-`" 'popper-toggle-latest
