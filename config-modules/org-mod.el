@@ -1,12 +1,37 @@
-;;; -*- lexical-binding: t -*-
+;;; org-mod.el ---                                   -*- lexical-binding: t; -*-
 
-;; NOTE I should probably make Emacs detect DPI instead of this hack.
+;; Copyright (C) 2022  John Honaker
+
+;; Author: John Honaker <john@pop-os>
+;; Keywords: 
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Code:
+
+(straight-use-package 'org)
+(straight-use-package 'org-ql)
+(straight-use-package 'org-super-agenda)
 
 (setq org-agenda-files '("~/org/refile.org"
 			 "~/org/projects.org")
       org-default-notes-file "~/org/refile.org")
 
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+(with-eval-after-load 'org
+  ;; NOTE I should probably make Emacs detect DPI instead of this hack.
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0)))
+
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -22,14 +47,6 @@
 
 (autoload #'org-indent-mode "org" nil t)
 (add-hook 'org-mode-hook #'org-indent-mode)
-
-
-(let ((map global-map))
-  (define-key map (kbd "C-c l") 'org-store-link)
-  (define-key map (kbd "C-c a") 'org-agenda)
-  (define-key map (kbd "C-c c") 'org-capture)
-  (define-key map (kbd "C-c b") 'org-switchb))
-
 
 (setq org-log-done 'time)
 
@@ -50,11 +67,9 @@
 
 (setq org-archive-location "archive/%s_archive::")
 
+;;;; Agenda
 
-;;; Agenda
-
-
-;;;; Agenda Views
+;;;;; Agenda Views
 
 (defmacro def-ql (name query &optional header)
   "Defines an `org-ql-block' called NAME for the QUERY with an optional HEADER."
@@ -153,7 +168,8 @@
 	  ,@mentat/all-projects-block
 	  ,@mentat/stuck-projects-block))))
 
-;; Capture Templates
+;;;; Capture Templates
+
 
 (setq org-capture-templates
   '(("t" "Task" entry (file org-default-notes-file)
@@ -161,6 +177,9 @@
 %t
 %i
 %a")))
+
+
+;;;; Functions
 
 ;; Functions
 
@@ -189,7 +208,7 @@ Callers of this function already widen the buffer view."
       (if (equal (point) task)
 	  nil t))))
 
-;;; Review Functions
+;;;; Review Functions
 
 (defvar weekly-review-template "~/org/templates/weeklyreview.org")
 
@@ -238,7 +257,19 @@ selected instead of creating a new buffer."
         ;; I don't understand why setting the point again is necessary, but it is.
         (goto-char pos)
         (org-narrow-to-subtree))))
+
 (advice-add 'org-tree-to-indirect-buffer :override 'ap/org-tree-to-indirect-buffer)
 
-(provide 'mentat-org-setup)
 
+;;;; Keybindings
+
+(let ((km mode-specific-map))
+  (define-key km (kbd "l") 'org-store-link)
+  (define-key km (kbd "a") 'org-agenda)
+  (define-key km (kbd "c") 'org-capture)
+  (define-key km (kbd "b") 'org-switchb))
+
+(message "org-mod")
+
+(provide 'org-mod)
+;;; org-mod.el ends here
