@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 
 (require 'util-functions)
 
@@ -48,5 +49,38 @@
 ;;; In-flux
 
 (straight-use-package 'dumb-jump)
+
+(straight-use-package '(zk :files (:defaults "zk-consult.el")))
+(straight-use-package 'zk-index)
+
+(setq zk-directory "~/org/zk/")
+(setq zk-file-extension "md")
+
+(require 'zk)
+(zk-setup-embark)
+
+(require 'zk-consult)
+(setq zk-grep-function 'zk-consult-grep)
+(setq zk-tag-grep-function 'zk-consult-grep-tag-search)
+
+(require 'zk-index)
+(zk-index-setup-embark)
+(setq zk-index-desktop-directory zk-directory)
+
+;; Luhmann style ids
+
+(straight-use-package '(zk-luhmann :type git
+                                   :host github
+                                   :repo "localauthor/zk-luhmann"))
+
+(let ((km zk-index-map))
+  (define-key km (kbd "L") #'zk-luhmann-index-sort)
+  (define-key km (kbd "l") #'zk-luhmann-index)
+  (define-key km (kbd "C-f") #'zk-luhmann-index-forward)
+  (define-key km (kbd "C-b") #'zk-luhmann-index-back)
+  (define-key km (kbd "C-t") #'zk-luhmann-index-unfold)
+  (define-key km (kbd "t") #'zk-luhmann-index-top)
+  (dolist (n (mapcar #'number-to-string '(1 2 3 4 5 6 7 8 9)))
+    (define-key km (kbd n) #'zk-luhmmann-index-level)))
 
 ;;; config.el ends here
