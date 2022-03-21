@@ -33,6 +33,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.tex\\'" . TeX-latex-mode))
 
+(add-hook 'LaTeX-mode-hook #'cdlatex-mode)
 (add-hook 'LaTeX-mode-hook #'prettify-symbols-mode)
 (add-hook 'LaTeX-mode-hook #'TeX-fold-mode)
 (add-hook 'LaTeX-mode-hook #'reftex-mode)
