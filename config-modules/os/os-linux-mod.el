@@ -23,7 +23,7 @@
 (straight-use-package 'envrc)
 (envrc-global-mode)
 
-(require 'vterm) ;; installed via guix
+;;(require 'vterm) ;; installed via guix
 
 (provide 'os-linux-mod)
 ;;; os-linux-mod.el ends here

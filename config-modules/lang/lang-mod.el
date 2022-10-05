@@ -28,6 +28,7 @@
 
 (require 'lang-julia-mod)
 (require 'lang-python-mod)
+(require 'lang-ocaml-mod)
 
 
 ;;;; R

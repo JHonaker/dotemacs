@@ -21,7 +21,7 @@
 ;;; Code:
 
 (straight-use-package 'auctex)
-(straight-use-package 'cdlatex)
+;;(straight-use-package 'cdlatex)
 
 
 ;; AUCTeX
@@ -29,28 +29,55 @@
 (custom-set-variables
  '(TeX-auto-save t)
  '(TeX-parse-self t)
- '(reftex-plug-into-AUCTeX t))
+ '(reftex-plug-into-AUCTeX t)
+ ;; '(TeX-electric-math '("\\(" . "\\)"))
+ ;'(TeX-engine-alist '((optex "OpTeX" "optex" nil nil)))
+                                        ;'(TeX-engine 'optex)
+ '(TeX-electric-math nil)
+ '(TeX-engine 'luatex)
+ '(TeX-engine-alist '((optex "OpTeX" "optex" nil nil)))
+ '(TeX-source-correlate-start-server nil)
+ '(TeX-view-program-list
+   '(("Sioyek"
+    ("sioyek %o --reuse-instance"
+     (mode-io-correlate
+      " --forward-search-file %b --forward-search-line %n --inverse-search \"emacsclient --no-wait +%2:%3 %1\""))
+    "sioyek")))
+  '(TeX-view-program-selection
+   '(((output-dvi has-no-display-manager)
+      "dvi2tty")
+     ((output-dvi style-pstricks)
+      "dvips and gv")
+     (output-dvi "xdvi")
+     (output-pdf "Sioyek")
+     (output-html "xdg-open"))))
 
-(add-to-list 'auto-mode-alist '("\\.tex\\'" . TeX-latex-mode))
+(add-to-list 'auto-mode-alist '("\\.tex\\'" . TeX-mode))
 
-(add-hook 'LaTeX-mode-hook #'cdlatex-mode)
+;;(add-hook 'LaTeX-mode-hook #'cdlatex-mode)
 (add-hook 'LaTeX-mode-hook #'prettify-symbols-mode)
-(add-hook 'LaTeX-mode-hook #'TeX-fold-mode)
+;; (add-hook 'LaTeX-mode-hook #'TeX-fold-mode)
 (add-hook 'LaTeX-mode-hook #'reftex-mode)
+(add-hook 'LaTeX-mode-hook #'outline-minor-mode)
+(add-hook 'LaTeX-mode-hook #'TeX-source-correlate-mode)
 
 (with-eval-after-load 'latex
-  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+  (define-key TeX-source-correlate-map [C-down-mouse-1] #'TeX-view-mouse)
+  )
 
-  (defvar mentat/latex-preview-scale 1.0)
+;; (with-eval-after-load 'latex
+;;   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 
-  (add-hook 'LaTeX-mode-hook
-            (defun preview-larger-previews ()
-              (setq preview-scale-function
-                    (lambda () (* mentat/latex-preview-scale
-				  (funcall (preview-scale-from-face))))))))
+;;   (defvar mentat/latex-preview-scale 1.0)
 
-(with-eval-after-load 'preview
-  (add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
+;;   (add-hook 'LaTeX-mode-hook
+;;             (defun preview-larger-previews ()
+;;               (setq preview-scale-function
+;;                     (lambda () (* mentat/latex-preview-scale
+;; 				  (funcall (preview-scale-from-face))))))))
+
+;; (with-eval-after-load 'preview
+;;   (add-to-list 'preview-default-preamble "\\PreviewEnvironment{tikzpicture}" t))
 
 (provide 'lang-latex-mod)
 ;;; lang-latex-mod.el ends here

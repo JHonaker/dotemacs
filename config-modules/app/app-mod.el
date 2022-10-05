@@ -22,7 +22,7 @@
 
 (require 'app-elfeed-mod)
 (require 'app-magit-mod)
-(require 'app-deft-mod)
+;; (require 'app-deft-mod)
 
 (straight-use-package 'pdf-tools)
 (straight-use-package 'ein)

@@ -21,8 +21,8 @@
 ;;; Code:
 
 ;;; Revert mode should be on by default
-(customize-set-variable 'global-auto-revert-non-file-buffers t)
-(global-auto-revert-mode 1)
+;(customize-set-variable 'global-auto-revert-non-file-buffers t)
+;(global-auto-revert-mode 1)
 
 ;; Keep .emacs.d clean
 (require 'no-littering)
@@ -74,7 +74,7 @@
 
 (setq read-process-output-max (* 1024 1024))
 
-(auto-insert-mode)
+; (auto-insert-mode)
 
 ;; Unbind these awful keys
 (global-unset-key (kbd "<insert>"))

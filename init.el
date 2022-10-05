@@ -57,11 +57,11 @@
 
 ;;; Emacs Server
 
-(add-hook 'after-init-hook
-	  (lambda ()
-	    (require 'server)
-	    (unless (server-running-p)
-	      (server-start))))
+;; (add-hook 'after-init-hook
+;; 	  (lambda ()
+;; 	    (require 'server)
+;; 	    (unless (server-running-p)
+;; 	      (server-start))))
 
 (when on-linux
   (require 'os-linux-mod))

@@ -20,6 +20,8 @@
 
 ;;; Code:
 
+(straight-use-package 'paredit)
+
 (dolist (hook '(emacs-list-mode-hook
 		eval-expression-minibuffer-setup-hook
 		ielm-mode-hook
@@ -36,13 +38,13 @@
   (let ((km paredit-mode-map))
     ;; Switch C-backspace to use paredit-backward-kill to prevent
     ;; unbalancing parentheses
-    (define-key (kbd "<C-backspace>") 'paredit-backward-kill-word)
-    (define-key (kbd "<M-backspace>") 'backward-kill-word)
+    (define-key km (kbd "<C-backspace>") 'paredit-backward-kill-word)
+    (define-key km (kbd "<M-backspace>") 'backward-kill-word)
     ;; Remap the splice and split to not conflict with `search-map'.
-    (define-key (kbd "M-s") nil)
-    (define-key (kbd "M-S") nil)
-    (define-key (kbd "M-s s") 'paredit-splice-sexp)
-    (define-key (kbd "M-S S") 'paredit-split-sexp)))
+    (define-key km (kbd "M-s") nil)
+    (define-key km (kbd "M-S") nil)
+    (define-key km (kbd "M-s s") 'paredit-splice-sexp)
+    (define-key km (kbd "M-S S") 'paredit-split-sexp)))
 
 (provide 'paredit-mod)
 ;;; paredit-mod.el ends here

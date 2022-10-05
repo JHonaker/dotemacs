@@ -25,20 +25,20 @@
 (with-eval-after-load 'avy
   (custom-set-variables
    '(avy-style 'at-full)
-   '(avy-dispatch-alist ((?m . avy-action-mark)
-		        (?  . avy-action-mark-to-char)
-		        (?I . avy-action-ispell)
-		        (?E . avy-action-embark)
-		        (?H . avy-action-helpful)
-		        (?z . avy-action-zap-to-char)
+   ;; '(avy-dispatch-alist (;(?m . avy-action-mark)
+   ;;      	        (?  . avy-action-mark-to-char)
+   ;;      	        (?I . avy-action-ispell)
+   ;;      	        (?E . avy-action-embark)
+   ;;      	        (?H . avy-action-helpful)
+   ;;      	        (?z . avy-action-zap-to-char)
 
-		        (?w . avy-action-copy)
-		        (?k . avy-action-kill-stay)
-		        (?y . avy-action-yank)
+   ;;      	        (?w . avy-action-copy)
+   ;;      	        (?k . avy-action-kill-stay)
+   ;;      	        (?y . avy-action-yank)
 
-		        (?W . avy-action-copy-whole-line)
-		        (?K . avy-action-kill-whole-line)
-		        (?Y . avy-action-yank-whole-line)))
+   ;;      	        (?W . avy-action-copy-whole-line)
+   ;;      	        (?K . avy-action-kill-whole-line)
+   ;;      	        (?Y . avy-action-yank-whole-line)))
    '(avy-timeout-seconds 0.4)
    '(avy-background t)))
 

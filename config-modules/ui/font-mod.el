@@ -23,10 +23,10 @@
 ;; TODO: Look into fontsets
 
 (custom-set-faces
- '(default ((t (:family "Iosevka" :height 120))))
- '(fixed-pitch ((t (:family "Iosevka" :height 120))))
- '(variable-pitch ((t (:family "Iosevka Etoile"
-			       :height 120)))))
+ '(default ((t (:family "Fira Code" :height 110))))
+ '(fixed-pitch ((t (:family "Fira Code" :height 110))))
+ '(variable-pitch ((t (:family "Fira Code"
+			       :height 110)))))
 
 
 
