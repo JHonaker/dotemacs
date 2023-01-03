@@ -191,7 +191,7 @@ otherwise delete a word"
 
 ;;;;; Corfu
 
-(corfu-global-mode)
+(global-corfu-mode)
 
 (defun corfu-move-to-minibuffer ()
   (interactive)

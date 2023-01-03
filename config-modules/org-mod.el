@@ -39,6 +39,7 @@
    (R . t)
    (lisp . t)
    (emacs-lisp . t)
+   (racket . t)
    (calc . t)))
 
 (setq org-confirm-babel-evaluate nil)

@@ -1,4 +1,4 @@
-;;; app-elfeed-mod.el ---                            -*- lexical-binding: t; -*-
+;;; init-util.el --- Utility functions for use during Emacs init  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2022  John Honaker
 
@@ -20,18 +20,11 @@
 
 ;;; Code:
 
-(straight-use-package 'elfeed)
-(straight-use-package 'elfeed-org)
+(defun recursive-add-folder-to-load-path (folder-name)
+  "Adds the folder `folder-name' and any sub-folders inside of it to the `load-path'"
+  (let ((default-directory (directory-file-name folder-name)))
+    (normal-top-level-add-to-load-path '("."))
+    (normal-top-level-add-subdirs-to-load-path)))
 
-;; (elfeed-protocol-enable)
-(add-hook 'elfeed-show-mode-hook #'my/enhance-elfeed-redability)
-
-(defun my/enhance-elfeed-redability ()
-  "Clean up elfeed show buffer"
-  (setq-local shr-width 80)
-  (buffer-face-set 'fixed-pitch))
-
-(elfeed-org)
-
-(provide 'app-elfeed-mod)
-;;; app-elfeed-mod.el ends here
+(provide 'init-util)
+;;; init-util.el ends here

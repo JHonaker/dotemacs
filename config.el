@@ -25,7 +25,6 @@
 (straight-use-package 'kaolin-themes)
 ;;(load-theme 'kaolin-ocean)
 
-
 (straight-use-package 'hydra)
 (straight-use-package 'transient)
 (straight-use-package 'which-key)
@@ -52,49 +51,49 @@
 
 (straight-use-package 'dumb-jump)
 
-(straight-use-package '(zk :files (:defaults "zk-consult.el")))
-(straight-use-package 'zk-index)
+;; (straight-use-package '(zk :files (:defaults "zk-consult.el")))
+;; (straight-use-package 'zk-index)
 
-(setq zk-directory "~/org/zk/")
-(setq zk-file-extension "org")
+;; (setq zk-directory "~/org/zk/")
+;; (setq zk-file-extension "org")
 
-(require 'zk)
-(zk-setup-embark)
+;; (require 'zk)
+;; (zk-setup-embark)
 
-(require 'zk-consult)
-(setq zk-grep-function 'zk-consult-grep)
-(setq zk-tag-grep-function 'zk-consult-grep-tag-search)
+;; (require 'zk-consult)
+;; (setq zk-grep-function 'zk-consult-grep)
+;; (setq zk-tag-grep-function 'zk-consult-grep-tag-search)
 
-(require 'zk-index)
-(zk-index-setup-embark)
-(setq zk-index-desktop-directory zk-directory)
+;; (require 'zk-index)
+;; (zk-index-setup-embark)
+;; (setq zk-index-desktop-directory zk-directory)
 
-(defun zk-org-try-to-follow-link (fn &optional arg)
-  "When 'org-open-at-point' FN fails, try 'zk-follow-link-at-point'.
-Optional ARG."
-  (let ((org-link-search-must-match-exact-headline t))
-    (condition-case nil
-	(apply fn arg)
-      (error (zk-follow-link-at-point)))))
+;; (defun zk-org-try-to-follow-link (fn &optional arg)
+;;   "When 'org-open-at-point' FN fails, try 'zk-follow-link-at-point'.
+;; Optional ARG."
+;;   (let ((org-link-search-must-match-exact-headline t))
+;;     (condition-case nil
+;; 	(apply fn arg)
+;;       (error (zk-follow-link-at-point)))))
 
-(with-eval-after-load 'org
-  (advice-add 'org-open-at-point :around #'zk-org-try-to-follow-link))
+;; (with-eval-after-load 'org
+;;   (advice-add 'org-open-at-point :around #'zk-org-try-to-follow-link))
 
-;; Luhmann style ids
+;; ;; Luhmann style ids
 
-(straight-use-package '(zk-luhmann :type git
-                                   :host github
-                                   :repo "localauthor/zk-luhmann"))
+;; (straight-use-package '(zk-luhmann :type git
+;;                                    :host github
+;;                                    :repo "localauthor/zk-luhmann"))
 
-(let ((km zk-index-map))
-  (define-key km (kbd "L") #'zk-luhmann-index-sort)
-  (define-key km (kbd "l") #'zk-luhmann-index)
-  (define-key km (kbd "C-f") #'zk-luhmann-index-forward)
-  (define-key km (kbd "C-b") #'zk-luhmann-index-back)
-  (define-key km (kbd "C-t") #'zk-luhmann-index-unfold)
-  (define-key km (kbd "t") #'zk-luhmann-index-top)
-  (dolist (n (mapcar #'number-to-string '(1 2 3 4 5 6 7 8 9)))
-    (define-key km (kbd n) #'zk-luhmmann-index-level)))
+;; (let ((km zk-index-map))
+;;   (define-key km (kbd "L") #'zk-luhmann-index-sort)
+;;   (define-key km (kbd "l") #'zk-luhmann-index)
+;;   (define-key km (kbd "C-f") #'zk-luhmann-index-forward)
+;;   (define-key km (kbd "C-b") #'zk-luhmann-index-back)
+;;   (define-key km (kbd "C-t") #'zk-luhmann-index-unfold)
+;;   (define-key km (kbd "t") #'zk-luhmann-index-top)
+;;   (dolist (n (mapcar #'number-to-string '(1 2 3 4 5 6 7 8 9)))
+;;     (define-key km (kbd n) #'zk-luhmmann-index-level)))
 
 ;; Tempel - Templates by minad using Tempo.el
 

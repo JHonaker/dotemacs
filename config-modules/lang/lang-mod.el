@@ -26,9 +26,11 @@
 (require 'lang-latex-mod)
 (require 'lang-markdown-mod)
 
+(require 'lang-racket-mod)
+
 (require 'lang-julia-mod)
 (require 'lang-python-mod)
-(require 'lang-ocaml-mod)
+(require 'lang-ocaml-mod)  ;
 
 
 ;;;; R

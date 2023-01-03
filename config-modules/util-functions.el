@@ -69,5 +69,29 @@
         (set-visited-file-name new-name)
         (set-buffer-modified-p nil)))))
 
+(defun jh/open-directory-in-named-tab (directory tab-name)
+  "Opens the `directory' in a tab called `tab-name'.
+
+Switches to or creates the tab if it does not exist."
+  (tab-switch tab-name)
+  (find-file directory))
+
+;;;###autoload
+(defun jh/open-emacs-config-dired ()
+  "Opens the Emacs configuration directory in a tab called \"Emacs Config\"."
+  (interactive)
+  (jh/open-directory-in-named-tab
+   user-emacs-directory
+   "Emacs Config"))
+
+(defun jh/open-nix-config-dired ()
+  "Opens the NixOS configuration director in a tab called \"Nix Config\"."
+  (interactive)
+  (jh/open-directory-in-named-tab
+   (expand-file-name "~/dots/nixos/")
+   "Nix Config"))
+
+
 (provide 'util-functions)
 ;;; util-functions.el ends here
+

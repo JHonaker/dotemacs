@@ -27,11 +27,11 @@
 (require 'tab-bar-mod)
 (require 'themes-mod)
 
-(straight-use-package '(pulsar :host gitlab
-                               :repo "protesilaos/pulsar"
-                               :type git))
+;; (straight-use-package '(pulsar :host gitlab
+;;                                :repo "protesilaos/pulsar"
+;;                                :type git))
 
-(pulsar-setup)
+;; (pulsar-setup)
 
 
 ;;;; Line Numbers
